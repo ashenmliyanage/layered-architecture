@@ -44,7 +44,6 @@ public class CustomerDAOImpl {
 
         return pstm.executeUpdate() > 0;
     }
-
     public boolean exitCustomer(String id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
