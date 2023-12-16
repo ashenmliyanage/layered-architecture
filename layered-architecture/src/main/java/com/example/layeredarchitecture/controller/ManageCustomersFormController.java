@@ -1,5 +1,6 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.dao.CustermerDAO;
 import com.example.layeredarchitecture.dao.CustomerDAOImpl;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
@@ -71,7 +72,7 @@ public class ManageCustomersFormController {
         /*Get all customers*/
         try {
 
-            CustomerDAOImpl customerAO = new CustomerDAOImpl();
+            CustermerDAO customerAO = new CustomerDAOImpl();
             ArrayList<CustomerDTO> allCustomer = customerAO.getAllCustomer();
 
             for (CustomerDTO customerDTO : allCustomer) {
@@ -151,7 +152,7 @@ public class ManageCustomersFormController {
                 if (existCustomer(id)) {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
-                CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+                CustermerDAO customerDAO = new CustomerDAOImpl();
                 boolean saveCustomer = customerDAO.saveCustomer(new CustomerDTO(id, name, address));
 
                 if (saveCustomer){
@@ -171,7 +172,7 @@ public class ManageCustomersFormController {
                 if (!existCustomer(id)) {
                     new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
                 }
-               CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+               CustermerDAO customerDAO = new CustomerDAOImpl();
                 boolean update = customerDAO.update(new CustomerDTO(id, name, address));
 
                 if (update){
@@ -195,7 +196,7 @@ public class ManageCustomersFormController {
 
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+        CustermerDAO customerDAO = new CustomerDAOImpl();
         return customerDAO.exitCustomer(id);
     }
 
@@ -208,7 +209,7 @@ public class ManageCustomersFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
 
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+            CustermerDAO customerDAO = new CustomerDAOImpl();
             boolean delete = customerDAO.delete(id);
 
             if (delete){
@@ -227,7 +228,7 @@ public class ManageCustomersFormController {
 
     private String generateNewId() {
         try {
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+            CustermerDAO customerDAO = new CustomerDAOImpl();
             return customerDAO.genarateId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
