@@ -44,4 +44,30 @@ public class CustomerDAOImpl {
 
         return pstm.executeUpdate() > 0;
     }
+
+    public boolean exitCustomer(String id) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
+        pstm.setString(1, id);
+        return pstm.executeQuery().next();
+    }
+
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
+        pstm.setString(1, id);
+        return pstm.executeUpdate()>0;
+    }
+
+    public String genarateId() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        ResultSet rst = connection.createStatement().executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
+        if (rst.next()) {
+            String id = rst.getString("id");
+            int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
+            return String.format("C00-%03d", newCustomerId);
+        } else {
+            return "C00-001";
+        }
+    }
 }
