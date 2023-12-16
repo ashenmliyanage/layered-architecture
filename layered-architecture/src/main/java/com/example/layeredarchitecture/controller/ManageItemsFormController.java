@@ -140,11 +140,11 @@ public class ManageItemsFormController {
             if (!existItem(code)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
-            Connection connection = DBConnection.getDbConnection().getConnection();
-            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
-            pstm.setString(1, code);
-            pstm.executeUpdate();
-
+            ItemDAoimpl itemDAoimpl = new ItemDAoimpl();
+            boolean delete = itemDAoimpl.delete(code);
+            if (delete){
+                new Alert(Alert.AlertType.INFORMATION,"delete successful").show();
+            }
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
             initUI();
@@ -183,13 +183,11 @@ public class ManageItemsFormController {
                     new Alert(Alert.AlertType.ERROR, code + " already exists").show();
                 }
                 //Save Item
-                Connection connection = DBConnection.getDbConnection().getConnection();
-                PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
-                pstm.setString(1, code);
-                pstm.setString(2, description);
-                pstm.setBigDecimal(3, unitPrice);
-                pstm.setInt(4, qtyOnHand);
-                pstm.executeUpdate();
+                ItemDAoimpl itemDAoimpl = new ItemDAoimpl();
+                boolean save = itemDAoimpl.save(new ItemDTO(code, description, unitPrice, qtyOnHand));
+                if (save){
+                    new Alert(Alert.AlertType.INFORMATION,"Saved").show();
+                }
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
 
             } catch (SQLException e) {
@@ -204,13 +202,11 @@ public class ManageItemsFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
                 }
                 /*Update Item*/
-                Connection connection = DBConnection.getDbConnection().getConnection();
-                PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
-                pstm.setString(1, description);
-                pstm.setBigDecimal(2, unitPrice);
-                pstm.setInt(3, qtyOnHand);
-                pstm.setString(4, code);
-                pstm.executeUpdate();
+               ItemDAoimpl itemDAoimpl = new ItemDAoimpl();
+                boolean b = itemDAoimpl.updateItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
+                if (b){
+                    new Alert(Alert.AlertType.INFORMATION,"Updated").show();
+                }
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
