@@ -1,9 +1,6 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.dao.ItemDAO;
-import com.example.layeredarchitecture.dao.ItemDAoimpl;
-import com.example.layeredarchitecture.dao.OrderDAO;
-import com.example.layeredarchitecture.dao.OrderDAOimpl;
+import com.example.layeredarchitecture.dao.*;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
@@ -319,31 +316,9 @@ public class PlaceOrderFormController {
                 return false;
             }
 
-            stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
+            OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAOimpl();
+            return orderDetailsDAO.save(orderDetails,orderId);
 
-            for (OrderDetailDTO detail : orderDetails) {
-                stm.setString(1, orderId);
-                stm.setString(2, detail.getItemCode());
-                stm.setBigDecimal(3, detail.getUnitPrice());
-                stm.setInt(4, detail.getQty());
-
-                if (stm.executeUpdate() != 1) {
-                    connection.rollback();
-                    connection.setAutoCommit(true);
-                    return false;
-                }
-
-//                //Search & Update Item
-                ItemDTO item = findItem(detail.getItemCode());
-                item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
-
-                if (!orderDAO.update(item)) {
-                    orderDAO.Roalback();
-                    return false;
-                }
-            }
-
-            return true;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
