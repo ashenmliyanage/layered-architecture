@@ -1,6 +1,11 @@
-package com.example.layeredarchitecture.dao;
+package com.example.layeredarchitecture.dao.impl;
 
 import com.example.layeredarchitecture.controller.PlaceOrderFormController;
+import com.example.layeredarchitecture.dao.ItemDAO;
+import com.example.layeredarchitecture.dao.OrderDAO;
+import com.example.layeredarchitecture.dao.OrderDetailsDAO;
+import com.example.layeredarchitecture.dao.impl.ItemDAoimpl;
+import com.example.layeredarchitecture.dao.impl.OrderDAOimpl;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
@@ -10,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class OrderDetailsDAOimpl implements OrderDetailsDAO{
+public class OrderDetailsDAOimpl implements OrderDetailsDAO {
     @Override
     public boolean save(List<OrderDetailDTO> orderDetails, String orderId) throws SQLException, ClassNotFoundException {
 

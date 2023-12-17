@@ -1,12 +1,13 @@
-package com.example.layeredarchitecture.dao;
+package com.example.layeredarchitecture.dao.impl;
 
+import com.example.layeredarchitecture.dao.CustermerDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDAOImpl implements CustermerDAO{
+public class CustomerDAOImpl implements CustermerDAO {
     public ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException{
         Connection connection = DBConnection.getDbConnection().getConnection();
         Statement stm = connection.createStatement();

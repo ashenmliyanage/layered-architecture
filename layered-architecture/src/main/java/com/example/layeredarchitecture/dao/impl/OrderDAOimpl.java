@@ -1,5 +1,6 @@
-package com.example.layeredarchitecture.dao;
+package com.example.layeredarchitecture.dao.impl;
 
+import com.example.layeredarchitecture.dao.OrderDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
@@ -8,7 +9,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class OrderDAOimpl implements OrderDAO{
+public class OrderDAOimpl implements OrderDAO {
 
     Connection connection = DBConnection.getDbConnection().getConnection();
 
