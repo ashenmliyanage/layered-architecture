@@ -19,4 +19,5 @@ public interface ItemDAO {
 
     public String genarate() throws SQLException, ClassNotFoundException;
 
+    ItemDTO search(String code) throws SQLException, ClassNotFoundException;
 }
