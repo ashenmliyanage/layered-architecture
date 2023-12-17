@@ -13,8 +13,8 @@ public class DBConnection {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/company",
-                "root",
-                "Ijse@1234"
+                "Ashen",
+                "Ashen@2004"
         );
     }
 
