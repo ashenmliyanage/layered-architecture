@@ -74,7 +74,6 @@ public class ManageItemsFormController {
             /*Get all items*/
             ItemDAO itemDAoimpl = new ItemDAoimpl();
             ArrayList<ItemDTO> getall = itemDAoimpl.getall();
-
             for (ItemDTO itemDTO : getall) {
                 tblItems.getItems().add(
                         new ItemTM(
