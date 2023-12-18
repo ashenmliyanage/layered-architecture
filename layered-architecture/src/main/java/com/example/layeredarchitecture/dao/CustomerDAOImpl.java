@@ -6,7 +6,7 @@ import com.example.layeredarchitecture.util.SQLUtil;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDAOImpl implements CustomerDAO {
+public class  CustomerDAOImpl implements CustomerDAO {
     @Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
 
