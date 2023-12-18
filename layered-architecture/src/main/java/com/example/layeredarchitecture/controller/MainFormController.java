@@ -1,5 +1,8 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.dao.Custom.QurayDAO;
+import com.example.layeredarchitecture.dao.Custom.impl.QuaryDAOimpl;
+import com.example.layeredarchitecture.model.CustomerOrderDetailsDTO;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -18,6 +21,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -41,11 +46,29 @@ public class MainFormController {
     /**
      * Initializes the controller class.
      */
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) throws SQLException, ClassNotFoundException {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), root);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
+    }
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        JoinQuery();
+    }
+
+    private void JoinQuery() throws SQLException, ClassNotFoundException {
+        QurayDAO qurayDAO = new QuaryDAOimpl();
+        List<CustomerOrderDetailsDTO> dtoList = qurayDAO.customerOrderDetails();
+        for (CustomerOrderDetailsDTO dto : dtoList){
+            System.out.print(dto.getId()+"-");
+            System.out.print(dto.getName()+"-");
+            System.out.print(dto.getAddress()+"-");
+            System.out.print(dto.getOrderId()+"-");
+            System.out.print(dto.getData());
+            System.out.println();
+        }
+
     }
 
     @FXML
@@ -64,7 +87,7 @@ public class MainFormController {
     }
 
     @FXML
-    private void playMouseEnterAnimation(MouseEvent event) {
+    private void playMouseEnterAnimation(MouseEvent event) throws SQLException, ClassNotFoundException {
         if (event.getSource() instanceof ImageView) {
             ImageView icon = (ImageView) event.getSource();
 
@@ -103,7 +126,7 @@ public class MainFormController {
 
 
     @FXML
-    private void navigate(MouseEvent event) throws IOException {
+    private void navigate(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
         if (event.getSource() instanceof ImageView) {
             ImageView icon = (ImageView) event.getSource();
 
@@ -121,6 +144,7 @@ public class MainFormController {
                     break;
                 case "imgViewOrders":
                     root = null;
+                    JoinQuery();
                     break;
             }
 

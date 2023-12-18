@@ -1,7 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.dao.CustomerDAO;
-import com.example.layeredarchitecture.dao.CustomerDAOImpl;
+import com.example.layeredarchitecture.dao.Custom.CustomerDAO;
+import com.example.layeredarchitecture.dao.Custom.impl.CustomerDAOImpl;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
 import com.jfoenix.controls.JFXButton;
@@ -71,7 +71,7 @@ public class ManageCustomersFormController {
         /*Get all customers*/
         try {
 
-            ArrayList<CustomerDTO> allCustomers = customerDAO.getAllCustomers();
+            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
 
             for (CustomerDTO dto : allCustomers) {
                 tblCustomers.getItems().add(
@@ -147,7 +147,7 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
 
-                boolean isSaved = customerDAO.saveCustomer( new CustomerDTO( id, name, address ) );
+                boolean isSaved = customerDAO.save( new CustomerDTO( id, name, address ) );
 
                 if (isSaved) {
                     tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -167,7 +167,7 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
                 }
 
-                boolean isUpdated = customerDAO.updateCustomer( new CustomerDTO( id, name, address ) );
+                boolean isUpdated = customerDAO.update( new CustomerDTO( id, name, address ) );
 
                 if (isUpdated) {
                     CustomerTM selectedCustomer = tblCustomers.getSelectionModel().getSelectedItem();
@@ -201,7 +201,7 @@ public class ManageCustomersFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
 
-            boolean isDeleted = customerDAO.deleteCustomer( id );
+            boolean isDeleted = customerDAO.delete( id );
 
             if(isDeleted) {
                 tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
