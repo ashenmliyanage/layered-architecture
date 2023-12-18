@@ -4,6 +4,7 @@ import com.example.layeredarchitecture.dao.OrderDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
+import com.example.layeredarchitecture.utill.SqlUtil;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -17,15 +18,14 @@ public class OrderDAOimpl implements OrderDAO {
     }
 
     @Override
-    public CustomerDTO getCusData(String Id) throws SQLException {
+    public CustomerDTO getCusData(String Id) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
-        pstm.setString(1, Id + "");
-        ResultSet rst = pstm.executeQuery();
-        rst.next();
-        CustomerDTO customerDTO = null;
-        return customerDTO = new CustomerDTO(Id + "", rst.getString("name"), rst.getString("address"));
+        ResultSet rst = SqlUtil.execute("SELECT * FROM Customer WHERE id=?",Id);
 
+        if (rst.next()) {
+            return new CustomerDTO(Id + "", rst.getString("name"), rst.getString("address"));
+        }
+        return null;
     }
 
     @Override

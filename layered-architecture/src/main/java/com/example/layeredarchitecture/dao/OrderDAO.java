@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface OrderDAO {
-    public CustomerDTO getCusData(String Id) throws SQLException;
+    public CustomerDTO getCusData(String Id) throws SQLException, ClassNotFoundException;
     public ItemDTO getItemData(String code) throws SQLException;
     public boolean exitsItem(String code) throws SQLException;
     public boolean exitCustomer(String Id) throws SQLException;

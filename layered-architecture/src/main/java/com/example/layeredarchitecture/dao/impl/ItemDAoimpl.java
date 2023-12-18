@@ -3,15 +3,15 @@ package com.example.layeredarchitecture.dao.impl;
 import com.example.layeredarchitecture.dao.ItemDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.ItemDTO;
+import com.example.layeredarchitecture.utill.SqlUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class ItemDAoimpl implements ItemDAO {
     public ArrayList<ItemDTO> getall() throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
-        Statement stm = connection.createStatement();
-        ResultSet rst = stm.executeQuery("SELECT * FROM Item");
+
+        ResultSet rst = SqlUtil.execute("SELECT * FROM Item");
 
         ArrayList<ItemDTO> dto = new ArrayList<>();
         while (rst.next()){
