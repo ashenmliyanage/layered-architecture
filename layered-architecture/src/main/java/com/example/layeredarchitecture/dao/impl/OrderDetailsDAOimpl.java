@@ -9,6 +9,7 @@ import com.example.layeredarchitecture.dao.impl.OrderDAOimpl;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
+import com.example.layeredarchitecture.utill.Transaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,7 +42,7 @@ public class OrderDetailsDAOimpl implements OrderDetailsDAO {
             item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
             if (itemDAO.updateItem(item)) {
-                orderDAO.Roalback();
+                Transaction.Roalback();
                 return false;
             }
         }

@@ -17,7 +17,6 @@ public interface OrderDAO {
     public ArrayList<String> getOrderCode() throws SQLException;
     public boolean getOrderId(String orderId) throws SQLException;
     public int save(String orderId, LocalDate orderDate, String customerId) throws SQLException;
-    public void Roalback() throws SQLException, ClassNotFoundException;
     public boolean update(ItemDTO itemDTO) throws SQLException;
 
 }

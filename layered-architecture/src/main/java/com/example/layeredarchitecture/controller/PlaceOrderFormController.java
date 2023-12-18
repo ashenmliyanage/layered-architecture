@@ -7,6 +7,7 @@ import com.example.layeredarchitecture.dao.impl.OrderDetailsDAOimpl;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
+import com.example.layeredarchitecture.utill.Transaction;
 import com.example.layeredarchitecture.view.tdm.OrderDetailTM;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -306,6 +307,7 @@ public class PlaceOrderFormController {
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
         /*Transaction*/
         try {
+            Transaction.Start();
             /*if order id already exist*/
             if (orderDAO.getOrderId(orderId)) {
 
@@ -313,11 +315,12 @@ public class PlaceOrderFormController {
             int save = orderDAO.save(orderId, orderDate, customerId);
 
             if (save != 1) {
-                orderDAO.Roalback();
+                Transaction.Roalback();
                 return false;
             }
 
             OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAOimpl();
+            Transaction.end();
             return orderDetailsDAO.save(orderDetails,orderId);
 
 

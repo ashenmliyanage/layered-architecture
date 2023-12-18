@@ -110,15 +110,6 @@ public class OrderDAOimpl implements OrderDAO {
     }
 
     @Override
-    public void Roalback() throws SQLException, ClassNotFoundException {
-
-        connection = DBConnection.getDbConnection().getConnection();
-        connection.rollback();
-        connection.setAutoCommit(true);
-
-    }
-
-    @Override
     public boolean update(ItemDTO itemDTO) throws SQLException {
 
         PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
