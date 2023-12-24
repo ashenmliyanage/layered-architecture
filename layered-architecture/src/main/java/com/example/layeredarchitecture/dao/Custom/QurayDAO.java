@@ -5,6 +5,6 @@ import com.example.layeredarchitecture.model.CustomerOrderDetailsDTO;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface QurayDAO {
+public interface QurayDAO extends SuperDAO{
     List<CustomerOrderDetailsDTO> customerOrderDetails() throws SQLException, ClassNotFoundException;
 }
