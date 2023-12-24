@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class CustomerBOimpl implements CustomerBo {
 
-    CustomerDAO customerDAO = new CustomerDAOImpl();
+    CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOType.CUSTOMER);
     public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
         return customerDAO.getAll();
     }
