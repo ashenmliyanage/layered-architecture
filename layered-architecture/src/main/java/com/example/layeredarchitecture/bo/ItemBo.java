@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface ItemBo {
+public interface ItemBo extends SuperBo{
 
     public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException;
 

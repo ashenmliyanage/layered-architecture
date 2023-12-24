@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface PlaceOrderBo {
+public interface PlaceOrderBo extends SuperBo{
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails);
     public String generateNextOrderId() throws SQLException, ClassNotFoundException;
 
